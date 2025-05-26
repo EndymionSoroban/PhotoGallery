@@ -11,7 +11,7 @@ let tokenExpiryTime = null;
 let refreshTimer = null;
 
 // Configuration - Edit these values for your gallery
-const CLIENT_ID = '435262729989-v00gc3a6fgstp5lpsv2tdtoas1ddt48m.apps.googleusercontent.com'; // Your OAuth Client ID
+const CLIENT_ID = ''; // Your OAuth Client ID
 const SCOPES = 'https://www.googleapis.com/auth/drive.readonly';
 const metadataFileName = 'image-data.json';
 
