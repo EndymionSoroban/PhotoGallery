@@ -72,19 +72,6 @@ A modern, responsive image gallery that seamlessly integrates with Google Drive 
 5. **Save configuration** to Google Drive
 6. **View your gallery** at `viewer.html`
 
-## 📁 File Structure
-
-```
-google-drive-gallery/
-├── 📄 admin.html              # Admin interface
-├── 📄 viewer.html             # Gallery viewer  
-├── 📄 admin-script.js         # Admin functionality
-├── 📄 script.js               # Viewer functionality
-├── 📄 admin-styles.css        # Admin styling
-├── 📄 styles.css              # Viewer styling
-└── 📄 README.md               # This file
-```
-
 ## 🎯 Usage Guide
 
 ### Creating Your First Gallery
