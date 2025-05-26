@@ -50,8 +50,8 @@ A modern, responsive image gallery that seamlessly integrates with Google Drive 
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/google-drive-gallery.git
-   cd google-drive-gallery
+   git clone https://github.com/EndymionSoroban/PhotoGallery/
+   cd PhotoGallery
    ```
 
 2. **Deploy to your web server:**
