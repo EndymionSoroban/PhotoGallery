@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Manager - Admin (Google Drive)</title>
+    <link rel="stylesheet" href="admin-styles.css">
+</head>
+
+<body>
+    <div class="header">
+        <h1>Image Manager - Admin (Google Drive)</h1>
+        <div>
+            <button id="view-gallery" style="background-color: #2196F3;">Open Gallery View</button>
+        </div>
+    </div>
+
+    <!-- Fixed Action Buttons -->
+    <div class="fixed-actions">
+        <button id="toggle-nav" class="action-btn nav-btn">Toggle Navigation</button>
+        <button id="save-to-drive" class="action-btn save-btn" onclick="saveImageData()">💾 Save to Drive</button>
+    </div>
+
+    <!-- Project Settings Section -->
+    <div class="project-settings">
+        <h3>🎨 Project Settings</h3>
+        <div class="title-status" id="titleStatus">
+            <span id="titleStatusText">📝 Current Title: "My Gallery"</span>
+        </div>
+        <div id="title-fields" style="margin-top: 10px; display: none;">
+            <input type="text" id="gallery-title" placeholder="Enter gallery title"
+                style="margin-right: 10px; padding: 8px; width: 300px;" />
+            <button id="save-title-btn">Save Title</button>
+        </div>
+        <div id="change-title-section" style="margin-top: 10px; display: block;">
+            <button id="change-title-btn" style="background-color: #ff9800;">Change Title</button>
+        </div>
+    </div>
+
+    <!-- Google Drive Authentication Section -->
+    <div class="auth-section">
+        <h3>🔐 Google Drive Authentication</h3>
+        <div class="form-group">
+            <label for="clientId">OAuth Client ID:</label>
+            <input type="text" id="clientId">
+            <small style="color: #666; display: block; margin-top: 5px;">
+                Get this from <a href="https://console.cloud.google.com/" target="_blank">Google Cloud Console</a> → APIs & Services → Credentials
+            </small>
+        </div>
+        
+        <button onclick="initializeAuth()">Initialize Authentication</button>
+        
+        <div class="auth-status" id="authStatus">
+            <strong>Status:</strong> <span id="statusText">Not initialized</span>
+        </div>
+        
+        <div id="signInDiv"></div>
+        <button onclick="signOut()" id="signOutBtn" style="display: none;">Sign Out</button>
+    </div>
+
+    <!-- Google Drive Configuration Section -->
+    <div class="drive-config">
+        <h3>📁 Google Drive Configuration</h3>
+        <div class="form-group">
+            <label for="driveFolder">Drive Folder URL (optional):</label>
+            <input type="text" id="driveFolder" placeholder="Paste Google Drive folder URL (leave empty for root folder)">
+            <small style="color: #666; display: block; margin-top: 5px;">
+                Images and JSON file will be saved to this folder. Leave empty to use root folder.
+            </small>
+        </div>
+        <div style="margin-top: 10px;">
+            <button id="load-folder-btn" disabled style="background-color: #17a2b8; margin-right: 10px;">Load Existing Gallery from Folder</button>
+            <button id="scan-images-btn" disabled style="background-color: #6f42c1;">Scan Folder for Images</button>
+        </div>
+        <div id="selectedFolder" style="margin-top: 10px; font-weight: bold;">Selected: Root Folder (My Drive)</div>
+        <div id="folder-scan-results" style="margin-top: 10px; display: none;" class="scan-results">
+            <h4>📊 Folder Contents:</h4>
+            <div id="scan-summary"></div>
+            <div id="found-images" style="margin-top: 10px;"></div>
+        </div>
+    </div>
+
+    <div id="group-navigation" class="scrollable-nav">
+        <div class="group-nav-search">
+            <input type="text" id="group-search" placeholder="Search groups...">
+        </div>
+        <div class="group-nav-header">
+            <strong>Groups (drag to reorder):</strong>
+        </div>
+        <div id="group-nav-items"></div>
+    </div>
+
+    <div class="upload-container">
+        <h3>Upload New Images</h3>
+        <input type="file" id="file-upload" accept="image/*" multiple disabled>
+        <p>Or drag and drop images here</p>
+        <div class="progress" id="progressBar">
+            <div class="progress-bar" id="progressBarFill"></div>
+        </div>
+        <p style="color: #666; font-size: 14px;">Sign in to Google Drive to enable uploads</p>
+    </div>
+
+    <div class="password-protection-form">
+        <h3>🔒 Password Protection</h3>
+        <div class="password-status" id="passwordStatus">
+            <span id="passwordStatusText">🔓 Password protection is DISABLED</span>
+        </div>
+        <div>
+            <input type="checkbox" id="enable-password" />
+            <label for="enable-password">Enable password protection</label>
+        </div>
+        <div id="password-fields" style="margin-top: 10px; display: none;">
+            <input type="password" id="gallery-password" placeholder="Enter gallery password"
+                style="margin-right: 10px;" />
+            <button id="save-password-btn">Set Password</button>
+        </div>
+        <div id="change-password-section" style="margin-top: 10px; display: none;">
+            <button id="change-password-btn">Change Password</button>
+        </div>
+    </div>
+
+    <div class="add-group-form">
+        <h3>Add New Group</h3>
+        <input type="text" id="new-group-name" placeholder="Group name">
+        <button id="add-group-btn">Add Group</button>
+    </div>
+
+    <h2>Manage Images</h2>
+    <p>Drag images to reorder them or move between groups. Drag groups in the navigation panel to reorder them. Changes are automatically saved to Google Drive when you click the "Save to Drive" button.</p>
+
+    <div id="image-groups-container"></div>
+
+    <div id="status-message"></div>
+
+    <script src="https://accounts.google.com/gsi/client"></script>
+    <script src="admin-script.js"></script>
+</body>
+
+</html>

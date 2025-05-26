@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery - User View</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="header">
+        <h1 id="gallery-title">Image Gallery</h1>
+    </div>
+
+    <div class="user-friendly-info">
+        <h4>🎉 Google Drive Gallery!</h4>
+        <p>This gallery loads images directly from Google Drive. Sign in to view images from the configured folder or any accessible folder.</p>
+    </div>
+
+    <!-- Google Drive Authentication Section -->
+    <div class="auth-section">
+        <h3>🔐 Google Drive Authentication</h3>
+        <p style="color: #666; margin-bottom: 15px;">
+            This gallery uses Google Drive. Please sign in to view images.
+        </p>
+        
+        <div id="signInDiv">
+            <button onclick="requestAuth()" style="background: #4285f4; color: white; border: none; padding: 12px 24px; border-radius: 4px; cursor: pointer; font-size: 16px;">🔐 Sign in with Google</button>
+        </div>
+        
+        <div class="auth-status" id="authStatus">
+            <strong>Status:</strong> <span id="statusText">Not signed in</span>
+        </div>
+        
+        <button onclick="signOut()" id="signOutBtn" style="display: none;">Sign Out</button>
+    </div>
+
+    <!-- Google Drive Configuration Section -->
+    <div class="drive-config">
+        <h3>📁 Google Drive Configuration</h3>
+        <div class="form-group">
+            <label for="driveFolder">Drive Folder URL:</label>
+            <input type="text" id="driveFolder" placeholder="Paste Google Drive folder link here (leave empty for root folder)">
+            <small style="color: #666; display: block; margin-top: 5px;">
+                Works with your folders, shared folders, or public folders
+            </small>
+        </div>
+        <div id="selectedFolder" style="margin-top: 10px; font-weight: bold;"></div>
+        <button onclick="loadImagesFromDriveWithMerge()" id="loadFromDriveBtn" disabled>🔄 Load Images from Google Drive</button>
+    </div>
+
+    <div id="password-overlay"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255,255,255,0.9); z-index: 1000; justify-content: center; align-items: center;">
+        <div
+            style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 0 20px rgba(0,0,0,0.2); max-width: 400px; text-align: center; position: relative;">
+            
+            <!-- Password session status indicator -->
+            <div id="password-session-status" class="password-session-status" style="display: none;">
+                Password remembered for this session
+                <button class="password-session-clear" onclick="clearPasswordSession()">Clear</button>
+            </div>
+            
+            <h2>This gallery is password protected</h2>
+            <p>Please enter the password to view the images:</p>
+            <div style="margin: 20px 0;">
+                <input type="password" id="access-password" style="padding: 10px; width: 80%; margin-bottom: 10px;"
+                    placeholder="Enter password...">
+                <button id="password-submit"
+                    style="display: block; width: 80%; margin: 0 auto; padding: 10px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">Enter
+                    Gallery</button>
+            </div>
+            <p id="password-error" style="color: #f44336; display: none;">Incorrect password. Please try again.</p>
+            
+            <!-- Remember password option -->
+            <div style="margin-top: 15px; font-size: 14px; color: #666;">
+                <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    <input type="checkbox" id="remember-password" checked>
+                    Remember for this browser session
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <button id="toggle-nav" class="toggle-nav-btn">Toggle Group Navigation</button>
+
+    <div id="group-navigation" class="group-navigation">
+        <div class="group-nav-search">
+            <input type="text" id="group-search" placeholder="Search groups...">
+        </div>
+        <div id="group-nav-items"></div>
+    </div>
+
+    <div class="image-counter" id="imageCounter" style="display: none;"></div>
+
+    <div id="galleries-container">
+        <div class="loading">
+            <div>Ready to load images...</div>
+        </div>
+    </div>
+
+    <div id="lightbox" class="lightbox">
+        <div class="lightbox-close" onclick="closeLightbox()">&times;</div>
+        <div class="lightbox-content">
+            <img id="lightbox-image" src="" alt="Enlarged image" draggable="false">
+            <div id="lightbox-caption"
+                style="color: white; text-align: center; padding: 15px; max-width: 800px; margin: 0 auto;"></div>
+        </div>
+        <div class="lightbox-controls">
+            <button onclick="prevImage()">&laquo; Previous</button>
+            <button onclick="nextImage()">Next &raquo;</button>
+        </div>
+    </div>
+
+    <div id="status-message" class="status-message"></div>
+
+    <script src="https://accounts.google.com/gsi/client"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
